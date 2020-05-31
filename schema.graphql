@@ -1,0 +1,37 @@
+enum Status {
+    ONLINE
+    OFFLINE
+    STARTING
+    STOPPING
+    UNKNOWN
+}
+
+enum ServerCategory {
+    VANILLA
+    MODDED
+}
+
+type Server {
+    id: ID
+    name: String
+    playerCount: Int
+    version: String
+    status: Status
+    category: ServerCategory
+}
+
+type ChatMessage {
+    server: String
+    sender: String
+    sent: String
+    message: String
+}
+
+type Query {
+    servers(category: String): [Server]
+    chat(limit: Int = 10): [ChatMessage]
+}
+
+type Mutation {
+    createServer(name: String!, version: String!, category: ServerCategory = MODDED): Server
+}
