@@ -7,4 +7,4 @@ import graphql from "./graphql";
 graphql.applyMiddleware({ app });
 app.listen(8080);
 
-import "./chatshare";
+// import "./chatshare";

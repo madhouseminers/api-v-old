@@ -21,6 +21,7 @@ type Server {
 }
 
 type ChatMessage {
+    id: ID
     server: String
     sender: String
     sent: String

@@ -6,7 +6,11 @@ interface IListChatParams {
 
 export default async (_: any, args: IListChatParams) => {
   let query =
-    "select server, sender, sent, message from chat order by sent desc limit $1";
+    "select id, server, sender, sent, message from chats order by sent desc limit $1";
   const result = await db.query(query, [args.limit]);
-  return result.rows;
+
+  return result.rows.map((row) => {
+    row.sent = row.sent.toISOString();
+    return row;
+  });
 };

@@ -5,7 +5,7 @@ export async function up(db: Pool) {
     id SERIAL,
     server varchar(50),
     sender varchar(50),
-    sent timestamp,
+    sent timestamptz,
     message text,
     PRIMARY KEY (id)
   )`;
