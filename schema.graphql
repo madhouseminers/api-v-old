@@ -31,8 +31,22 @@ type ChatMessage {
 type Query {
     servers(category: String): [Server]
     chat(limit: Int = 10): [ChatMessage]
+    profile: User
+}
+
+type User {
+    id: String
+    email: String
+    displayName: String
+}
+
+type LoginPayload {
+    user: User
+    token: String
 }
 
 type Mutation {
+    authenticate(email: String!, password: String!): LoginPayload
+
     createServer(name: String!, version: String!, category: ServerCategory = MODDED): Server
 }
