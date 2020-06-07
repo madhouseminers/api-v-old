@@ -6,6 +6,8 @@ export async function up(db: Pool) {
     email varchar(50),
     password varchar(255),
     display varchar(50),
+    minecraftuuid varchar(50),
+    dob date,
     PRIMARY KEY (id)
   )`;
   await db.query(query);

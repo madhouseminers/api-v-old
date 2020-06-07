@@ -34,10 +34,16 @@ type Query {
     profile: User
 }
 
+type WhitelistStatus {
+    status: String
+    feedback: String
+}
+
 type User {
     id: String
     email: String
     displayName: String
+    whitelist: WhitelistStatus
 }
 
 type LoginPayload {
@@ -47,6 +53,18 @@ type LoginPayload {
 
 type Mutation {
     authenticate(email: String!, password: String!): LoginPayload
+    register(
+        email: String!,
+        password: String!,
+        confPassword: String!,
+        minecraftName: String!,
+        dob: String!,
+        whereHeard: String!,
+        moddedExperience: String!,
+        knownMembers: String!,
+        interestedServers: String!,
+        aboutUser: String!
+    ): LoginPayload
 
     createServer(name: String!, version: String!, category: ServerCategory = MODDED): Server
 }
