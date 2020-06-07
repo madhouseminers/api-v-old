@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/madhouseminers/api#readme",
   "dependencies": {
+    "apollo-cache-inmemory": "^1.6.6",
     "apollo-server-express": "^2.14.2",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",

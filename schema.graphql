@@ -28,10 +28,23 @@ type ChatMessage {
     message: String
 }
 
+type Whitelist {
+    id: ID,
+    displayName: String!,
+    dob: String!,
+    status: String!,
+    whereHeard: String!,
+    moddedExperience: String!,
+    knownMembers: String!,
+    interestedServers: String!,
+    aboutUser: String!
+}
+
 type Query {
     servers(category: String): [Server]
     chat(limit: Int = 10): [ChatMessage]
     profile: User
+    whitelist: Whitelist
 }
 
 type WhitelistStatus {
@@ -65,6 +78,12 @@ type Mutation {
         interestedServers: String!,
         aboutUser: String!
     ): LoginPayload
-
-    createServer(name: String!, version: String!, category: ServerCategory = MODDED): Server
+    updateWhitelist(
+        id: ID,
+        whereHeard: String!,
+        moddedExperience: String!,
+        knownMembers: String!,
+        interestedServers: String!,
+        aboutUser: String!
+    ): Whitelist
 }
