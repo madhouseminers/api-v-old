@@ -4,6 +4,7 @@ import typeDefs from "./typeDefs";
 import { ExpressContext } from "apollo-server-express/dist/ApolloServer";
 
 async function buildContext({ req }: ExpressContext) {
+  if (!req) return "";
   // Get the user token from the headers.
   return { token: req.headers.authorization || "" };
 }

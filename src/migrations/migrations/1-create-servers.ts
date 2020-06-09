@@ -2,8 +2,9 @@ import { Pool } from "pg";
 
 export async function up(db: Pool) {
   const query = `CREATE TABLE servers (
-    id char(36),
+    id SERIAL,
     name varchar(50),
+    url varchar(100),
     version varchar(10),
     playerCount int,
     status varchar(15),
@@ -11,6 +12,10 @@ export async function up(db: Pool) {
     PRIMARY KEY (id)
   )`;
   await db.query(query);
+
+  await db.query(
+    "insert into servers (name, url, version, playerCount, status, category) values ('RLCraft', 'rlcraft.madhouseminers.com', '2.81', 0, 'ONLINE', 'MODDED')"
+  );
 }
 
 export async function down(db: Pool) {

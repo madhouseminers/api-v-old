@@ -39,6 +39,7 @@ export default async (_: any, args: IAuthenticateParams) => {
       id: user.id,
       email: user.email,
       displayName: user.display,
+      reviewer: user.reviewer,
     },
   };
 };

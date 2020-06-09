@@ -14,7 +14,7 @@ enum ServerCategory {
 type Server {
     id: ID
     name: String
-    playerCount: Int
+    playercount: Int
     version: String
     status: Status
     category: ServerCategory
@@ -38,13 +38,15 @@ type Whitelist {
     knownMembers: String!,
     interestedServers: String!,
     aboutUser: String!
+    submitted: String
 }
 
 type Query {
     servers(category: String): [Server]
     chat(limit: Int = 10): [ChatMessage]
     profile: User
-    whitelist: Whitelist
+    whitelist(id: ID): Whitelist
+    whitelists: [Whitelist]
 }
 
 type WhitelistStatus {
@@ -56,6 +58,7 @@ type User {
     id: String
     email: String
     displayName: String
+    reviewer: Boolean
     whitelist: WhitelistStatus
 }
 
@@ -86,4 +89,13 @@ type Mutation {
         interestedServers: String!,
         aboutUser: String!
     ): Whitelist
+    reviewWhitelist(
+        id: ID,
+        outcome: String!,
+        feedback: String!
+    ): Whitelist
+}
+
+type Subscription {
+    serverUpdated(server: ID): Server
 }

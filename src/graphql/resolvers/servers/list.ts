@@ -6,7 +6,7 @@ interface IListServerParams {
 
 export default async (_: any, args: IListServerParams) => {
   let query =
-    "select id, name, version, status, playerCount, category from servers";
+    "select id, name, version, status, playercount, category from servers";
   let params = [];
   if (args.category) {
     query += " where category=$1";

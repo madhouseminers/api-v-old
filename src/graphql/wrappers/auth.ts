@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import db from "../../db";
+import { AuthenticationError } from "apollo-server-express";
 
-export const requiresAuth = (handler: Function) => async (
+export const requiresAuth = (handler: Function, reviewerOnly = false) => async (
   parent: any,
   args: any,
   context: { token: string; user: null | object }
@@ -23,6 +24,8 @@ export const requiresAuth = (handler: Function) => async (
 
       if (results.rowCount !== 1) {
         console.log("Invalid user ID in token");
+      } else if (reviewerOnly && !results.rows[0].reviewer) {
+        throw new AuthenticationError("Unable to access");
       } else {
         context.user = results.rows[0];
       }

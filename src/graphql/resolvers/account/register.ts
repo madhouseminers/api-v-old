@@ -167,6 +167,7 @@ export default async (_: any, args: IRegisterParams) => {
       id: id,
       email: args.email,
       displayName: args.minecraftName,
+      reviewer: false,
     },
   };
 };

@@ -27,6 +27,7 @@ async function handler(parent: any, args: any, context: { user: any }) {
     email: context.user.email,
     displayName: context.user.display,
     whitelist: whitelist,
+    reviewer: context.user.reviewer,
   };
 }
 
