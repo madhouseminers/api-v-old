@@ -4,10 +4,11 @@
   "description": "The GraphQL API for Madhouse Miners",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "concurrently \"nodemon src/index.ts\" \"parcel build --public-url={base_url} src/email/whitelist/*\"",
     "migrate": "ts-node src/migrations/index.ts",
     "migrate:down": "ts-node src/migrations/index.ts down",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "concurrently \"tsc\" \"parcel build --public-url={base_url} src/email/whitelist/*\"",
+    "start": "node build/index.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "jsonwebtoken": "^8.5.1",
     "mc-server-status": "^1.2.0",
     "moment": "^2.26.0",
+    "nodemailer": "^6.4.8",
     "pg": "^8.2.1",
     "uuid": "^8.1.0",
     "ws": "^7.3.0"
@@ -41,10 +43,13 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/nodemailer": "^6.4.0",
     "@types/pg": "^7.14.3",
     "@types/uuid": "^8.0.0",
     "@types/ws": "^7.2.5",
+    "concurrently": "^5.2.0",
     "nodemon": "^2.0.4",
+    "parcel": "^1.12.4",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"

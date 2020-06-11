@@ -45,6 +45,7 @@ async function handler(parent: any, args: any, context: { user: any }) {
   return {
     dob: context.user.dob.toISOString(),
     displayName: context.user.display,
+    minecraftuuid: context.user.minecraftuuid,
     ...whitelist,
   };
 }

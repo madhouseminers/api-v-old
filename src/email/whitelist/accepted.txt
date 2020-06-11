@@ -1,0 +1,12 @@
+Hello {displayname},
+
+Your whitelist application has been accepted!
+
+You now have access to all of our servers. For more information on the servers available please visit https://www.madhouseminers.com/, or join us on Discord!
+
+Our reviewer left the following comment:
+
+{comment}
+
+Happy Mining!
+Madhouse Miners

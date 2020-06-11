@@ -3,6 +3,7 @@ import moment from "moment";
 import request from "axios";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { sendMail } from "../../../email/send";
 
 interface IRegisterParams {
   email: string;
@@ -160,6 +161,11 @@ export default async (_: any, args: IRegisterParams) => {
       expiresIn: "6h",
     }
   );
+
+  await sendMail("submitted", "Your whitelist application has been received!", {
+    email: args.email,
+    display: args.minecraftName,
+  });
 
   return {
     token,

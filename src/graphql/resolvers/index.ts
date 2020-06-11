@@ -7,12 +7,14 @@ import whitelist from "./whitelist/fetch";
 import whitelists from "./whitelist/list";
 import updateWhitelist from "./whitelist/update";
 import reviewWhitelist from "./whitelist/review";
+import whitelistUpdate from "./whitelist/updateSubscription";
 
 import chat from "./chat/list";
 import { PubSub } from "apollo-server-express";
 
 export const pubsub = new PubSub();
 export const SERVER_UPDATED = "SERVER_UPDATED";
+export const WHITELIST_UPDATED = "WHITELIST_UPDATED";
 
 const resolvers = {
   Query: {
@@ -30,6 +32,7 @@ const resolvers = {
   },
   Subscription: {
     serverUpdated: updated,
+    whitelistUpdated: whitelistUpdate,
   },
 };
 

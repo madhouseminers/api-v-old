@@ -39,6 +39,7 @@ type Whitelist {
     interestedServers: String!,
     aboutUser: String!
     submitted: String
+    minecraftuuid: String
 }
 
 type Query {
@@ -98,4 +99,5 @@ type Mutation {
 
 type Subscription {
     serverUpdated(server: ID): Server
+    whitelistUpdated: Whitelist
 }

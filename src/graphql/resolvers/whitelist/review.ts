@@ -1,5 +1,7 @@
 import db from "../../../db";
 import { requiresAuth } from "../../wrappers/auth";
+import { pubsub, WHITELIST_UPDATED } from "../index";
+import { sendMail } from "../../../email/send";
 
 interface IUpdateWhitelistParams {
   id: string;
@@ -31,12 +33,13 @@ const review = async (
     [context.user.id, args.outcome, args.feedback, args.id]
   );
   const result = await db.query(
-    "select w.id, w.submitted, w.user_id, w.status, w.reviewer_feedback, w.where_heard, w.modded_experience, w.known_members, w.interested_servers, w.about_user, u.dob, u.display from whitelists w join users u on (w.user_id = u.id) order by w.submitted desc"
+    "select w.id, w.submitted, w.user_id, w.status, w.reviewer_feedback, w.where_heard, w.modded_experience, w.known_members, w.interested_servers, w.about_user, u.minecraftuuid, u.dob, u.display from whitelists w join users u on (w.user_id = u.id) order by w.submitted desc"
   );
 
-  return {
+  const newWhitelist = {
     dob: result.rows[0].dob.toISOString(),
     displayName: result.rows[0].display,
+    minecraftuuid: result.rows[0].minecraftuuid,
     id: result.rows[0].id,
     status: result.rows[0].status,
     feedback: result.rows[0].reviewer_feedback,
@@ -47,6 +50,19 @@ const review = async (
     aboutUser: result.rows[0].about_user,
     submitted: result.rows[0].submitted.toISOString(),
   };
+
+  await sendMail(
+    args.outcome,
+    "Your whitelist application has been reviewed!",
+    context.user,
+    args.feedback
+  );
+
+  await pubsub.publish(WHITELIST_UPDATED, {
+    whitelistUpdated: newWhitelist,
+  });
+
+  return newWhitelist;
 };
 
 export default requiresAuth(review, true);

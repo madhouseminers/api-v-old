@@ -1,0 +1,13 @@
+Hello {displayname},
+
+Your whitelist application needs more information!
+
+One of our staff has reviewed your application and requires more information before continuing the review. You can return to your whitelist application at https://www.madhouseminers.com/whitelist. If you need more help, please join our Discord server!
+
+Our reviewer left the following comment:
+
+{comment}
+
+Happy Mining!
+
+Madhouse Miners

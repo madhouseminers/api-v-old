@@ -8,10 +8,11 @@ async function handler(parent: any, args: any, context: { user: any }) {
   }
 
   const results = await db.query(
-    "select w.id, w.submitted, w.user_id, w.status, w.reviewer_feedback, w.where_heard, w.modded_experience, w.known_members, w.interested_servers, w.about_user, u.dob, u.display from whitelists w join users u on (w.user_id = u.id) order by w.submitted desc"
+    "select w.id, w.submitted, w.user_id, w.status, w.reviewer_feedback, w.where_heard, w.modded_experience, w.known_members, w.interested_servers, w.about_user, u.minecraftuuid, u.dob, u.display from whitelists w join users u on (w.user_id = u.id) order by w.submitted desc"
   );
 
   return results.rows.map((row) => ({
+    minecraftuuid: context.user.minecraftuuid,
     dob: row.dob.toISOString(),
     displayName: row.display,
     id: row.id,

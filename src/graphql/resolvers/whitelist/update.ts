@@ -1,5 +1,7 @@
 import db from "../../../db";
 import { requiresAuth } from "../../wrappers/auth";
+import { pubsub, WHITELIST_UPDATED } from "../index";
+import { sendMail } from "../../../email/send";
 
 interface IUpdateWhitelistParams {
   whereHeard: string;
@@ -63,12 +65,25 @@ const update = async (
     ]
   );
 
-  return {
+  const newWhitelist = {
     dob: context.user.dob.toISOString(),
     displayName: context.user.display,
     status: "SUBMITTED",
+    minecraftuuid: context.user.minecraftuuid,
     ...args,
   };
+
+  await sendMail(
+    "submitted",
+    "Your whitelist application has been received!",
+    context.user
+  );
+
+  await pubsub.publish(WHITELIST_UPDATED, {
+    whitelistUpdated: newWhitelist,
+  });
+
+  return newWhitelist;
 };
 
 export default requiresAuth(update);
