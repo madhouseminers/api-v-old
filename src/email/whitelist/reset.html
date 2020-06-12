@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Your password reset link is below!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+      }
+
+      .container img {
+        width: 200px;
+      }
+
+      a {
+        color: black;
+      }
+
+      blockquote {
+        font-style: italic;
+        background-color: #eee;
+        padding: 10px;
+        border-left: 3px solid #ccc;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: 1px solid #9588d1;
+        font-size: 0.9em;
+        border-radius: 3px;
+        background-color: #aea1ea;
+        margin-left: 10px;
+        color: white;
+      }
+
+      .btn:hover {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="
+            ../../images/logo/logo.webp        618w,
+            ../../images/logo/logo@0.5x.webp   309w,
+            ../../images/logo/logo@0.75x.webp  463w,
+            ../../images/logo/logo@1.5x.webp   926w,
+            ../../images/logo/logo@2x.webp    1235w,
+            ../../images/logo/logo@3x.webp    1852w,
+            ../../images/logo/logo@4x.webp    2468w
+          "
+        />
+        <img
+          src="../../images/logo/logo.png"
+          srcset="
+            ../../images/logo/logo.png        618w,
+            ../../images/logo/logo@0.5x.png   309w,
+            ../../images/logo/logo@0.75x.png  463w,
+            ../../images/logo/logo@1.5x.png   926w,
+            ../../images/logo/logo@2x.png    1235w,
+            ../../images/logo/logo@3x.png    1852w,
+            ../../images/logo/logo@4x.png    2468w
+          "
+          alt="Madhouse Miners Logo"
+        />
+      </picture>
+      <p>Hello {displayname},</p>
+      <p>
+        Someone has requested a password reset on your account. The link below
+        will allow you to update your password.
+      </p>
+      <p>
+        <a href="%7Bbase_url%7D/reset_pw/{comment}" class="btn"
+          >Reset Password</a
+        >
+      </p>
+      <p>
+        If you did not request this you can ignore it.
+      </p>
+      <p>Happy Mining!</p>
+      <p>Madhouse Miners</p>
+
+      <hr />
+      <a href="https://discord.gg/QM5cnnf">
+        <picture>
+          <source
+            type="image/webp"
+            srcset="
+              ../../images/discord/discord.webp      100w,
+              ../../images/discord/discord@1.5x.webp 150w,
+              ../../images/discord/discord@2x.webp   200w,
+              ../../images/discord/discord@3x.webp   300w
+            "
+          />
+          <img
+            src="../../images/discord/discord.png"
+            srcset="
+              ../../images/discord/discord.png      100w,
+              ../../images/discord/discord@1.5x.png 150w,
+              ../../images/discord/discord@2x.png   200w,
+              ../../images/discord/discord@3x.png   300w
+            "
+            alt="Join Discord"
+          />
+        </picture>
+      </a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+Hello {displayname},</p>
+
+Someone has requested a password reset on your account. Visiting the URL below will allow you to update your password.
+
+%7Bbase_url%7D/reset_pw/{comment}
+
+If you did not request this you can ignore it.
+
+Happy Mining!
+Madhouse Miners

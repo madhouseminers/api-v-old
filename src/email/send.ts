@@ -11,7 +11,7 @@ export async function sendMail(
   email: string,
   subject: string,
   user: IUser,
-  feedback?: string
+  data?: string
 ) {
   console.log(email);
   let transporter = nodemailer.createTransport({
@@ -27,12 +27,12 @@ export async function sendMail(
   const textEmail = readFileSync(resolve(__dirname, `../../dist/${email}.txt`))
     .toString()
     .replace("{displayname}", user.display)
-    .replace("{comment}", feedback ?? "")
+    .replace(new RegExp(/{comment}/g), data ?? "")
     .replace(new RegExp(/%7Bbase_url%7D/g), process.env.BASE_URL ?? "");
   const htmlEmail = readFileSync(resolve(__dirname, `../../dist/${email}.html`))
     .toString()
     .replace("{displayname}", user.display)
-    .replace("{comment}", feedback ?? "")
+    .replace(new RegExp(/{comment}/g), data ?? "")
     .replace(new RegExp(/%7Bbase_url%7D/g), process.env.BASE_URL ?? "");
 
   await transporter.sendMail({

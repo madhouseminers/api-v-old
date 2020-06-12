@@ -48,6 +48,7 @@ type Query {
     profile: User
     whitelist(id: ID): Whitelist
     whitelists: [Whitelist]
+    validateResetToken(token: String!): String
 }
 
 type WhitelistStatus {
@@ -95,6 +96,8 @@ type Mutation {
         outcome: String!,
         feedback: String!
     ): Whitelist
+    resetPassword(email: String!): Boolean
+    updatePassword(token: String!, password: String!, confirmPassword: String!): LoginPayload
 }
 
 type Subscription {

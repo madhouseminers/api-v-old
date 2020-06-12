@@ -9,6 +9,8 @@ export async function up(db: Pool) {
     minecraftuuid varchar(50),
     dob date,
     reviewer boolean default false,
+    register_key varchar(16),
+    reset_key varchar(16),
     PRIMARY KEY (id)
   )`;
   await db.query(query);
