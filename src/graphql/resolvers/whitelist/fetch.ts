@@ -3,12 +3,11 @@ import { requiresAuth } from "../../wrappers/auth";
 import db from "../../../db";
 
 async function handler(parent: any, args: any, context: { user: any }) {
-  if (!context.user) {
-    throw new AuthenticationError("Invalid token provided");
-  } else if (
-    args.id &&
-    context.user.id !== parseInt(args.id, 10) &&
-    !context.user.reviewer
+  if (
+    !context.user ||
+    (args.id &&
+      context.user.id !== parseInt(args.id, 10) &&
+      !context.user.reviewer)
   ) {
     throw new AuthenticationError("Invalid token provided");
   }
