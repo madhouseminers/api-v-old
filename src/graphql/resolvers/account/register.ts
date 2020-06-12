@@ -4,6 +4,7 @@ import request from "axios";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../../../email/send";
+import randomstring from "randomstring";
 
 interface IRegisterParams {
   email: string;
@@ -134,13 +135,21 @@ export default async (_: any, args: IRegisterParams) => {
 
   // Register the user here
   const hashedPassword = await bcrypt.hash(args.password, 12);
+  const verifyKey = randomstring.generate(16);
   const results = await db.query(
-    "insert into users (email, password, minecraftuuid, dob, display) values ($1, $2, $3, $4, $5) returning id",
-    [args.email, hashedPassword, mcUUID, args.dob, args.minecraftName]
+    "insert into users (email, password, minecraftuuid, dob, display, register_key) values ($1, $2, $3, $4, $5, $6) returning id",
+    [
+      args.email,
+      hashedPassword,
+      mcUUID,
+      args.dob,
+      args.minecraftName,
+      verifyKey,
+    ]
   );
   const id = results.rows[0].id;
   await db.query(
-    "insert into whitelists (user_id, where_heard, modded_experience, known_members, interested_servers, about_user, submitted, status) values ($1, $2, $3, $4, $5, $6, current_timestamp, 'SUBMITTED')",
+    "insert into whitelists (user_id, where_heard, modded_experience, known_members, interested_servers, about_user, submitted, status) values ($1, $2, $3, $4, $5, $6, current_timestamp, 'NONE')",
     [
       id,
       args.whereHeard,
@@ -153,27 +162,20 @@ export default async (_: any, args: IRegisterParams) => {
 
   const token = jwt.sign(
     {
-      sub: id,
+      key: verifyKey,
     },
     process.env.JWT_KEY as string,
     {
-      issuer: "mhm-api",
-      expiresIn: "6h",
+      expiresIn: "1h",
     }
   );
 
-  await sendMail("submitted", "Your whitelist application has been received!", {
-    email: args.email,
-    display: args.minecraftName,
-  });
+  await sendMail(
+    "verify",
+    "Please verify your new Madhouse Miners account",
+    { email: args.email, display: args.minecraftName },
+    token
+  );
 
-  return {
-    token,
-    user: {
-      id: id,
-      email: args.email,
-      displayName: args.minecraftName,
-      reviewer: false,
-    },
-  };
+  return true;
 };

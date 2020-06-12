@@ -1,0 +1,10 @@
+Hello {displayname},</p>
+
+Thank you for registering with Madhouse Miners. In order to complete your registration and whitelist application you will need to visit the link below.
+
+{site_url}/verify/{comment}
+
+If you did not request this you can ignore it.
+
+Happy Mining!
+Madhouse Miners

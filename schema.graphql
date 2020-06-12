@@ -82,7 +82,7 @@ type Mutation {
         knownMembers: String!,
         interestedServers: String!,
         aboutUser: String!
-    ): LoginPayload
+    ): Boolean
     updateWhitelist(
         id: ID,
         whereHeard: String!,
@@ -98,6 +98,7 @@ type Mutation {
     ): Whitelist
     resetPassword(email: String!): Boolean
     updatePassword(token: String!, password: String!, confirmPassword: String!): LoginPayload
+    verifyAccount(token: String!): LoginPayload
 }
 
 type Subscription {

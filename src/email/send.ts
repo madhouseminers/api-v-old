@@ -28,11 +28,13 @@ export async function sendMail(
     .toString()
     .replace("{displayname}", user.display)
     .replace(new RegExp(/{comment}/g), data ?? "")
+    .replace(new RegExp(/{site_url}/g), process.env.SITE_URL ?? "")
     .replace(new RegExp(/%7Bbase_url%7D/g), process.env.BASE_URL ?? "");
   const htmlEmail = readFileSync(resolve(__dirname, `../../dist/${email}.html`))
     .toString()
     .replace("{displayname}", user.display)
     .replace(new RegExp(/{comment}/g), data ?? "")
+    .replace(new RegExp(/{site_url}/g), process.env.SITE_URL ?? "")
     .replace(new RegExp(/%7Bbase_url%7D/g), process.env.BASE_URL ?? "");
 
   await transporter.sendMail({

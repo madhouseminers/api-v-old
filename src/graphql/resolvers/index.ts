@@ -14,6 +14,7 @@ import validateResetToken from "./account/validateResetToken";
 
 import chat from "./chat/list";
 import { PubSub } from "apollo-server-express";
+import verifyAccount from "./account/verifyAccount";
 
 export const pubsub = new PubSub();
 export const SERVER_UPDATED = "SERVER_UPDATED";
@@ -35,6 +36,7 @@ const resolvers = {
     reviewWhitelist,
     resetPassword,
     updatePassword,
+    verifyAccount,
   },
   Subscription: {
     serverUpdated: updated,
