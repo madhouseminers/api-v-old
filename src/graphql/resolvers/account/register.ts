@@ -135,7 +135,7 @@ export default async (_: any, args: IRegisterParams) => {
 
   // Register the user here
   const hashedPassword = await argon.hash(args.password, {
-    salt: new Buffer(randomstring.generate(32)),
+    salt: Buffer.from(randomstring.generate(32)),
   });
   const verifyKey = randomstring.generate(16);
   const results = await db.query(

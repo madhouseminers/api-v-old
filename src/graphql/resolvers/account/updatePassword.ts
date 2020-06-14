@@ -59,7 +59,7 @@ export default async (_: any, args: IValidateResetTokenParams) => {
   }
   const user = results.rows[0];
   const hashedPassword = await argon.hash(args.password, {
-    salt: new Buffer(randomstring.generate(32)),
+    salt: Buffer.from(randomstring.generate(32)),
   });
   await db.query("update users set password=$1, reset_key='' where id=$2", [
     hashedPassword,

@@ -13,7 +13,6 @@ export async function sendMail(
   user: IUser,
   data?: string
 ) {
-  console.log(email);
   let transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: 587,
