@@ -1,7 +1,7 @@
 import db from "../../../db";
 import moment from "moment";
 import request from "axios";
-import bcrypt from "bcryptjs";
+import argon from "argon2";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../../../email/send";
 import randomstring from "randomstring";
@@ -134,7 +134,9 @@ export default async (_: any, args: IRegisterParams) => {
   }
 
   // Register the user here
-  const hashedPassword = await bcrypt.hash(args.password, 12);
+  const hashedPassword = await argon.hash(args.password, {
+    salt: new Buffer(randomstring.generate(32)),
+  });
   const verifyKey = randomstring.generate(16);
   const results = await db.query(
     "insert into users (email, password, minecraftuuid, dob, display, register_key) values ($1, $2, $3, $4, $5, $6) returning id",

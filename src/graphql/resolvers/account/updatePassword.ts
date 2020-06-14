@@ -1,7 +1,8 @@
 import db from "../../../db";
 import { AuthenticationError } from "apollo-server-express";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+import argon from "argon2";
+import * as randomstring from "randomstring";
 
 interface IValidateResetTokenParams {
   token: string;
@@ -57,7 +58,9 @@ export default async (_: any, args: IValidateResetTokenParams) => {
     throw new AuthenticationError("Invalid Token Provided");
   }
   const user = results.rows[0];
-  const hashedPassword = await bcrypt.hash(args.password, 12);
+  const hashedPassword = await argon.hash(args.password, {
+    salt: new Buffer(randomstring.generate(32)),
+  });
   await db.query("update users set password=$1, reset_key='' where id=$2", [
     hashedPassword,
     user.id,

@@ -1,6 +1,6 @@
 import db from "../../../db";
 import { AuthenticationError } from "apollo-server-express";
-import bcrypt from "bcryptjs";
+import argon from "argon2";
 import jwt from "jsonwebtoken";
 
 interface IAuthenticateParams {
@@ -18,7 +18,7 @@ export default async (_: any, args: IAuthenticateParams) => {
   }
 
   const user = results.rows[0];
-  if (!(await bcrypt.compare(args.password, user.password))) {
+  if (!(await argon.verify(user.password, args.password))) {
     throw new AuthenticationError("Invalid e-mail address or password");
   }
 
