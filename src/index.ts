@@ -13,5 +13,5 @@ graphql.installSubscriptionHandlers(httpServer);
 
 httpServer.listen(8080);
 
-import "./chatshare";
+// import "./chatshare";
 import "./minecraft";
