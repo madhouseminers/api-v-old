@@ -25,13 +25,22 @@ async function fetchSrv(hostname: string): Promise<IAddress> {
 }
 
 async function updateData(server: IServer) {
+  let status;
   const serverInfo = await fetchSrv(server.url);
-  const status = await mcServerStatus.getStatus({
-    host: serverInfo.name,
-    port: serverInfo.port,
-  });
+  try {
+    status = await mcServerStatus.getStatus({
+      host: serverInfo.name,
+      port: serverInfo.port,
+    });
+  } catch (e) {
+    await db.query(
+      "update servers set playerCount=0, status='OFFLINE' where id=$1",
+      [server.id]
+    );
+    return;
+  }
 
-  if (status.players.online === server.playercount) {
+  if (status.players.online === server.playercount && server.status === 'ONLINE') {
     return;
   }
 
@@ -50,7 +59,13 @@ async function fetchServers() {
     "select id, name, url, version, status, playercount, category from servers"
   );
 
-  servers.rows.forEach((server) => updateData(server));
+  for (let i = 0; i<servers.rowCount; i++) {
+    try {
+      await updateData(servers.rows[i]);
+    } catch (e) {
+      console.log(`${servers.rows[i].name} : ${e.message}`)
+    }
+  }
 }
 
-export default setInterval(fetchServers, 1000);
+export default setInterval(fetchServers, 10000);

@@ -1,8 +1,4 @@
 import * as pg from "pg";
-const pool = new pg.Pool({
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+const pool = new pg.Pool();
 
 export default pool;
