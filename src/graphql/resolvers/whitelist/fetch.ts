@@ -14,7 +14,7 @@ async function handler(parent: any, args: any, context: { user: any }) {
 
   const results = await db.query(
     "select id, status, submitted, reviewer_feedback, where_heard, modded_experience, known_members, interested_servers, about_user from whitelists where user_id=$1 order by submitted desc limit 1",
-    [context.user.id]
+    [args.id??context.user.id]
   );
 
   let whitelist = {
