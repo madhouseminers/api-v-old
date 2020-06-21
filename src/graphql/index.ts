@@ -9,4 +9,4 @@ async function buildContext({ req }: ExpressContext) {
   return { token: req.headers.authorization || "" };
 }
 
-export default new ApolloServer({ typeDefs, resolvers, context: buildContext, playground: false });
+export default new ApolloServer({ typeDefs, resolvers, context: buildContext, playground: true });
