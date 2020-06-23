@@ -34,8 +34,11 @@ async function handler(parent: any, args: any, context: { user: any }) {
       "select id, user_id, status, submitted, reviewer_feedback, where_heard, modded_experience, known_members, interested_servers, about_user from whitelists where id=$1 order by submitted desc limit 1",
       [args.id]
     );
-    let user = await db.query("select dob, display, minecraftuuid from users where id=$1", [results.rows[0].user_id]);
-    whitelist.dob = user.rows[0].dob;
+    let user = await db.query(
+      "select dob, display, minecraftuuid from users where id=$1",
+      [results.rows[0].user_id]
+    );
+    whitelist.dob = user.rows[0].dob.toISOString();
     whitelist.displayName = user.rows[0].display;
     whitelist.minecraftuuid = user.rows[0].minecraftuuid;
   } else {
@@ -45,7 +48,7 @@ async function handler(parent: any, args: any, context: { user: any }) {
     );
     whitelist.dob = context.user.dob.toISOString();
     whitelist.displayName = context.user.display;
-    whitelist.minecraftuuid =context.user.minecraftuuid;
+    whitelist.minecraftuuid = context.user.minecraftuuid;
   }
 
   if (results.rowCount == 1) {
