@@ -28,6 +28,10 @@ const review = async (
     throw new Error(JSON.stringify(errors));
   }
 
+  const original = await db.query("select status from whitelists where id=$1", [
+    args.id,
+  ]);
+
   await db.query(
     "update whitelists set reviewed=current_timestamp, reviewer_id=$1, status=$2, reviewer_feedback=$3 where id=$4",
     [context.user.id, args.outcome, args.feedback, args.id]
@@ -52,12 +56,15 @@ const review = async (
     submitted: result.rows[0].submitted.toISOString(),
   };
 
-  await sendMail(
-    args.outcome,
-    "Your whitelist application has been reviewed!",
-    context.user,
-    args.feedback
-  );
+  console.log(original.rows[0].status);
+  if (original.rows[0].status === "SUBMITTED") {
+    await sendMail(
+      args.outcome,
+      "Your whitelist application has been reviewed!",
+      context.user,
+      args.feedback
+    );
+  }
 
   await pubsub.publish(WHITELIST_UPDATED, {
     whitelistUpdated: newWhitelist,
