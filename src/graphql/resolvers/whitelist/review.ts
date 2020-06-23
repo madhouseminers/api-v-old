@@ -33,7 +33,8 @@ const review = async (
     [context.user.id, args.outcome, args.feedback, args.id]
   );
   const result = await db.query(
-    "select w.id, w.submitted, w.user_id, w.status, w.reviewer_feedback, w.where_heard, w.modded_experience, w.known_members, w.interested_servers, w.about_user, u.minecraftuuid, u.dob, u.display from whitelists w join users u on (w.user_id = u.id) order by w.submitted desc"
+    "select w.id, w.submitted, w.user_id, w.status, w.reviewer_feedback, w.where_heard, w.modded_experience, w.known_members, w.interested_servers, w.about_user, u.minecraftuuid, u.dob, u.display from whitelists w join users u on (w.user_id = u.id) where w.id=$1",
+    [args.id]
   );
 
   const newWhitelist = {
