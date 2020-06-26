@@ -1,7 +1,7 @@
 import * as mcServerStatus from "mc-server-status";
 import db from "../db";
 import * as dns from "dns";
-import { pubsub } from "../graphql/resolvers";
+import { pubsub, SERVER_UPDATED } from "../graphql/resolvers";
 
 interface IServer {
   id: string;
@@ -40,7 +40,10 @@ async function updateData(server: IServer) {
     return;
   }
 
-  if (status.players.online === server.playercount && server.status === 'ONLINE') {
+  if (
+    status.players.online === server.playercount &&
+    server.status === "ONLINE"
+  ) {
     return;
   }
 
@@ -51,7 +54,7 @@ async function updateData(server: IServer) {
   server.status = "ONLINE";
   server.playercount = status.players.online;
 
-  await pubsub.publish("SERVER_UPDATED", { serverUpdated: server });
+  await pubsub.publish(SERVER_UPDATED, { serverUpdated: server });
 }
 
 async function fetchServers() {
@@ -59,11 +62,11 @@ async function fetchServers() {
     "select id, name, url, version, status, playercount, category from servers"
   );
 
-  for (let i = 0; i<servers.rowCount; i++) {
+  for (let i = 0; i < servers.rowCount; i++) {
     try {
       await updateData(servers.rows[i]);
     } catch (e) {
-      console.log(`${servers.rows[i].name} : ${e.message}`)
+      console.log(`${servers.rows[i].name} : ${e.message}`);
     }
   }
 }
