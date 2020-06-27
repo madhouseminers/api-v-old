@@ -60,7 +60,7 @@ const review = async (
     await sendMail(
       args.outcome,
       "Your whitelist application has been reviewed!",
-      original.rows[0],
+      result.rows[0],
       args.feedback
     );
   }
