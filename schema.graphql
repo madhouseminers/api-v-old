@@ -66,7 +66,7 @@ type Query {
     whitelist(id: ID): Whitelist
     whitelists: [Whitelist]
     validateResetToken(token: String!): String
-    discordUsers(statuses: [DiscordStatus] = [ONLINE, AWAY, DND]): [DiscordUser]
+    discordUsers: [DiscordUser]
 }
 
 type WhitelistStatus {
@@ -122,4 +122,5 @@ type Mutation {
 type Subscription {
     serverUpdated(server: ID): Server
     whitelistUpdated: Whitelist
+    discordUsersUpdate: [DiscordUser]
 }

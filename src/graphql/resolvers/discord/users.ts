@@ -48,6 +48,6 @@ async function updateLocalCache() {
 setInterval(updateLocalCache, 60000);
 updateLocalCache();
 
-export default async (_: any, args: IDiscordUsersParams) => {
+export default async () => {
   return users;
 };
