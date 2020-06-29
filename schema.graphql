@@ -42,6 +42,23 @@ type Whitelist {
     minecraftuuid: String
 }
 
+enum DiscordStatus {
+    ONLINE
+    AWAY
+    DND
+    IDLE
+    OFFLINE
+}
+
+type DiscordUser {
+    id: ID
+    avatar_url: String
+    avatar_url_jpg: String
+    name: String
+    playing: String
+    status: DiscordStatus
+}
+
 type Query {
     servers(category: String): [Server]
     chat(limit: Int = 10): [ChatMessage]
@@ -49,6 +66,7 @@ type Query {
     whitelist(id: ID): Whitelist
     whitelists: [Whitelist]
     validateResetToken(token: String!): String
+    discordUsers(statuses: [DiscordStatus] = [ONLINE, AWAY, DND]): [DiscordUser]
 }
 
 type WhitelistStatus {

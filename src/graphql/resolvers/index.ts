@@ -11,6 +11,7 @@ import updateWhitelist from "./whitelist/update";
 import reviewWhitelist from "./whitelist/review";
 import whitelistUpdate from "./whitelist/updateSubscription";
 import validateResetToken from "./account/validateResetToken";
+import discordUsers from "./discord/users";
 
 import chat from "./chat/list";
 import { PubSub } from "apollo-server-express";
@@ -28,6 +29,7 @@ const resolvers = {
     whitelist,
     whitelists,
     validateResetToken,
+    discordUsers,
   },
   Mutation: {
     authenticate,
