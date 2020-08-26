@@ -38,7 +38,7 @@
     "mc-server-status": "^1.2.0",
     "moment": "^2.26.0",
     "nodemailer": "^6.4.8",
-    "pg": "^8.2.1",
+    "pg": "^8.3.0",
     "randomstring": "^1.1.5",
     "uuid": "^8.1.0",
     "ws": "^7.3.1"
