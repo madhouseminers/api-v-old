@@ -2,6 +2,7 @@ import moment from "moment";
 import { Client, Message, MessageEmbed, TextChannel } from "discord.js";
 
 const discord = new Client();
+discord.login(process.env.DISCORD_TOKEN);
 
 interface IWhitelist {
   dob: string;
@@ -60,7 +61,6 @@ export async function sendWhitelist(whitelist: IWhitelist) {
     })
     .setTimestamp();
 
-  await discord.login(process.env.DISCORD_TOKEN);
   await (discord.channels.cache.get(
     process.env.DISCORD_CHANNEL
   ) as TextChannel).send(exampleEmbed);
