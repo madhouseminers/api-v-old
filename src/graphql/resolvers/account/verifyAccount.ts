@@ -2,6 +2,7 @@ import db from "../../../db";
 import { AuthenticationError } from "apollo-server-express";
 import jwt from "jsonwebtoken";
 import { pubsub, WHITELIST_UPDATED } from "../index";
+import { sendWhitelist } from "../../../discord";
 
 interface IValidateResetTokenParams {
   token: string;
@@ -54,6 +55,7 @@ export default async (_: any, args: IValidateResetTokenParams) => {
   await pubsub.publish(WHITELIST_UPDATED, {
     whitelistUpdated: newWhitelist,
   });
+  await sendWhitelist(newWhitelist);
 
   const token = jwt.sign(
     {

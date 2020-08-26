@@ -2,6 +2,7 @@ import db from "../../../db";
 import { requiresAuth } from "../../wrappers/auth";
 import { pubsub, WHITELIST_UPDATED } from "../index";
 import { sendMail } from "../../../email/send";
+import { sendWhitelist } from "../../../discord";
 
 interface IUpdateWhitelistParams {
   whereHeard: string;
@@ -82,6 +83,7 @@ const update = async (
   await pubsub.publish(WHITELIST_UPDATED, {
     whitelistUpdated: newWhitelist,
   });
+  await sendWhitelist(newWhitelist);
 
   return newWhitelist;
 };
