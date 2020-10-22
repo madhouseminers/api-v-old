@@ -18,6 +18,7 @@ type Server {
     version: String
     status: Status
     category: ServerCategory
+    url: String
 }
 
 type ChatMessage {
