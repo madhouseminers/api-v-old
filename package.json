@@ -36,7 +36,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mc-server-status": "^1.2.0",
-    "moment": "^2.29.0",
+    "moment": "^2.29.1",
     "nodemailer": "^6.4.12",
     "pg": "^8.4.0",
     "randomstring": "^1.1.5",
