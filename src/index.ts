@@ -11,7 +11,7 @@ graphql.applyMiddleware({ app });
 const httpServer = http.createServer(app);
 graphql.installSubscriptionHandlers(httpServer);
 
-httpServer.listen(8080);
+httpServer.listen(process.env.PORT || 8080);
 
 // import "./chatshare";
 import "./minecraft";
