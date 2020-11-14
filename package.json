@@ -37,7 +37,7 @@
     "jsonwebtoken": "^8.5.1",
     "mc-server-status": "^1.2.0",
     "moment": "^2.29.0",
-    "nodemailer": "^6.4.12",
+    "nodemailer": "^6.4.16",
     "pg": "^8.4.1",
     "randomstring": "^1.1.5",
     "uuid": "^8.3.1",
