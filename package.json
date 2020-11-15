@@ -29,7 +29,7 @@
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-server-express": "^2.18.2",
     "argon2": "^0.27.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "discord.js": "git+https://github.com/discordjs/discord.js.git",
     "dotenv": "^8.2.0",
