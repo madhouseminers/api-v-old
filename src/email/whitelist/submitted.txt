@@ -1,8 +1,0 @@
-Hello {displayname},
-
-Your whitelist application has been accepted!
-
-We have received your application and will be reviewing it shortly. You can still make changes to it at this stage at https://www.madhouseminers.com/whitelist. If you have any questions please join our Discord!
-
-Happy Mining!
-Madhouse Miners
