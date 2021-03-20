@@ -1,12 +1,12 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const http = require("http");
+import http from "http";
 
 import app from "./web";
 import graphql from "./graphql";
 
-graphql.applyMiddleware({ app });
+graphql.applyMiddleware({app});
 
 const httpServer = http.createServer(app);
 graphql.installSubscriptionHandlers(httpServer);
