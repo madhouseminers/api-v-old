@@ -3,7 +3,7 @@ import {Client, MessageEmbed, TextChannel, Intents} from "discord.js";
 
 const intents = new Intents();
 intents.add([3072]);
-const discord = new Client({intents});
+const discord = new Client({ws: {intents}});
 discord.login(process.env.DISCORD_TOKEN);
 
 interface IWhitelist {
